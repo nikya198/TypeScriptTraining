@@ -1,0 +1,29 @@
+html {
+  font-family: sans-serif;
+}
+
+#map {
+  width: 90%;
+  height: 20rem;
+  border: 1px solid #ccc;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+form {
+  text-align: center;
+  margin: 2rem auto;
+}
+
+button {
+  width: 5%;
+  max-width: 140px;
+  height: 34px;
+  border: none;
+  background-color: #4070ff;
+  color: #fff;
+  cursor: pointer;
+}
