@@ -1,0 +1,14 @@
+.prefCheckbox {
+  display: inline-block;
+  margin: 5px;
+}
+
+.inpuArea {
+  width: 90%;
+  max-width: 40rem;
+  margin: 2rem auto;
+}
+
+h1 {
+  text-align: center;
+}
