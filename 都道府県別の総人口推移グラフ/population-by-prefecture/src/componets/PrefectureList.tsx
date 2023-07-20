@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './PrefectureList.css';
 import PopulationGraph from './PopulationGraph';
+import { PopulationData } from '../PopulationData.model';
 
 type Prefecture = {
   prefCode: string;
   prefName: string;
   checked: boolean;
 };
-
-interface PopulationData {
-  prefCode: string;
-  prefName: string;
-  data: {
-    label: string;
-    data: {
-      year: number;
-      value: number;
-    }[];
-  }[];
-}
 
 const PrefectureList: React.FC = () => {
   const [prefectureList, setPrefecture] = useState<Prefecture[]>([]);
@@ -32,7 +21,6 @@ const PrefectureList: React.FC = () => {
     })
       .then((res) => res.json())
       .then((json) => {
-        //console.log(json.result);
         setPrefecture(json.result);
       });
   }, []);
@@ -48,7 +36,6 @@ const PrefectureList: React.FC = () => {
       setSelectedPrefectures([...selectedPrefectures, targetValue]);
     }
   };
-  //console.log(selectedPrefectures);
 
   useEffect(() => {
     const fetchPopulationData = async () => {
@@ -81,13 +68,11 @@ const PrefectureList: React.FC = () => {
     } else {
       setPopulationData([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPrefectures]);
 
-  console.log(populationData);
-  // console.log(populationData.length);
-
   return (
-    <div>
+    <>
       <div className='inpuArea'>
         {prefectureList.map((prefecture) => (
           <div className='prefCheckbox' key={prefecture.prefCode}>
@@ -100,9 +85,8 @@ const PrefectureList: React.FC = () => {
           </div>
         ))}
       </div>
-      <div></div>
-      <div id='container'>
-        {populationData.length > 0 && (
+      {populationData.length > 0 && (
+        <div id='container'>
           <select
             value={graphType}
             onChange={(e) => setGraphType(Number(e.target.value))}
@@ -112,12 +96,10 @@ const PrefectureList: React.FC = () => {
             <option value={2}>生産年齢人口</option>
             <option value={3}>老年人口</option>
           </select>
-        )}
-        {populationData.length > 0 && (
           <PopulationGraph data={populationData} graphType={graphType} />
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 

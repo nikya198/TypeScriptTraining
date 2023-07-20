@@ -1,19 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-//import PrefectureList from './PrefectureList';
-
-interface PopulationData {
-  prefCode: string;
-  prefName: string;
-  data: {
-    label: string;
-    data: {
-      year: number;
-      value: number;
-    }[];
-  }[];
-}
+import { PopulationData } from '../PopulationData.model';
 
 interface PopulationGraphProps {
   data: PopulationData[];
@@ -22,22 +10,40 @@ interface PopulationGraphProps {
 
 const PopulationGraph: React.FC<PopulationGraphProps> = (props) => {
   let series: Highcharts.SeriesOptionsType[] = [];
-  let categories: string[] = [];
+  let xData: string[] = [];
   let label = '';
-  for (let i = 0; i < props.data.length; i++) {
-    let data: number[] = [];
+
+  props.data.forEach((prefecData) => {
+    let yData: number[] = [];
     series.push({
       type: 'line',
-      name: props.data[i].prefName,
-      data: data,
+      name: prefecData.prefName,
+      data: yData,
     });
+    prefecData.data[props.graphType].data.forEach((selectData) => {
+      yData.push(selectData.value);
+      xData.push(String(selectData.year));
+    });
+  });
 
-    label = props.data[i].data[props.graphType].label;
-    for (let j = 0; j < props.data[i].data[props.graphType].data.length; j++) {
-      data.push(props.data[i].data[props.graphType].data[j].value);
-      categories.push(String(props.data[i].data[props.graphType].data[j].year));
-    }
-  }
+  // for (let i = 0; i < props.data.length; i++) {
+  //   let data: number[] = [];
+
+  //   series.push({
+  //     type: 'line',
+  //     name: props.data[i].prefName,
+  //     data: data,
+  //   });
+  //   //console.log(series);
+
+  //   const prefectureData = props.data[i].data[props.graphType];
+
+  //   label = prefectureData.label;
+  //   for (let j = 0; j < prefectureData.data.length; j++) {
+  //     data.push(prefectureData.data[j].value);
+  //     categories.push(String(prefectureData.data[j].year));
+  //   }
+  // }
 
   const options: Highcharts.Options = {
     title: {
@@ -47,7 +53,7 @@ const PopulationGraph: React.FC<PopulationGraphProps> = (props) => {
       title: {
         text: '年度',
       },
-      categories: categories,
+      categories: xData,
     },
     yAxis: {
       title: {
@@ -55,16 +61,12 @@ const PopulationGraph: React.FC<PopulationGraphProps> = (props) => {
       },
     },
     series: series,
+    accessibility: {
+      enabled: false,
+    },
   };
-  //const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
-  return (
-    <HighchartsReact
-      highcharts={Highcharts}
-      options={options}
-      //ref={chartComponentRef}
-      //{...props}
-    />
-  );
+
+  return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
 export default PopulationGraph;
