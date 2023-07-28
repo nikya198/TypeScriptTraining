@@ -1,0 +1,15 @@
+body {
+  font-family: sans-serif;
+}
+
+.myTable {
+  width: 70%;
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.myTable td {
+  padding: 6px;
+  border: solid 1px #778ca3;
+}
