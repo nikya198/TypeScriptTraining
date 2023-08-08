@@ -2,6 +2,11 @@ import cmp from './base-component';
 import * as Validation from '../util/validation';
 import { AutoBind } from '../decorators/autobind';
 import { projectState } from '../state/project-state';
+import _ from 'jszip';
+
+const zip = new _();
+zip.file('hello.txt', 'Hello !');
+console.log(zip);
 
 // ProjectInput Class
 //formの表示と入力値の取得を行うclass

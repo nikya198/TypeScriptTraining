@@ -13,3 +13,14 @@ h1 {
   text-align: center;
   padding: 1rem 3rem;
 }
+
+input[type='checkbox'] {
+  transform: scale(1.5);
+  margin: 0 6px 0 5px;
+}
+
+.selectdiv {
+  overflow: hidden;
+  width: 95%;
+  margin-left: 2px;
+}

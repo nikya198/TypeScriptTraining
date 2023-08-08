@@ -20,6 +20,7 @@ const PopulationGraph: React.FC<PopulationGraphProps> = (props) => {
       name: prefecData.prefName,
       data: yData,
     });
+    label = prefecData.data[props.graphType].label;
     prefecData.data[props.graphType].data.forEach((selectData) => {
       yData.push(selectData.value);
       xData.push(String(selectData.year));
@@ -45,6 +46,12 @@ const PopulationGraph: React.FC<PopulationGraphProps> = (props) => {
   //   }
   // }
 
+  Highcharts.setOptions({
+    lang: {
+      numericSymbols: null || undefined,
+    },
+  });
+
   const options: Highcharts.Options = {
     title: {
       text: label,
@@ -56,6 +63,7 @@ const PopulationGraph: React.FC<PopulationGraphProps> = (props) => {
       categories: xData,
     },
     yAxis: {
+      tickInterval: 100000, //目盛り間隔
       title: {
         text: '人口数',
       },

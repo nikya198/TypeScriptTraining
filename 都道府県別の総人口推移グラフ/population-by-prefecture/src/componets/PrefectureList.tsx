@@ -80,23 +80,31 @@ const PrefectureList: React.FC = () => {
               type='checkbox'
               onChange={PrefectureSubmitHandler}
               value={prefecture.prefCode}
+              id={`box_${prefecture.prefCode}`}
             ></input>
-            <label>{prefecture.prefName}</label>
+            <label htmlFor={`box_${prefecture.prefCode}`}>
+              {prefecture.prefName}
+            </label>
           </div>
         ))}
       </div>
+
       {populationData.length > 0 && (
-        <div id='container'>
-          <select
-            value={graphType}
-            onChange={(e) => setGraphType(Number(e.target.value))}
-          >
-            <option value={0}>総人口</option>
-            <option value={1}>年少人口</option>
-            <option value={2}>生産年齢人口</option>
-            <option value={3}>老年人口</option>
-          </select>
-          <PopulationGraph data={populationData} graphType={graphType} />
+        <div>
+          <div className='selectdiv'>
+            <select
+              value={graphType}
+              onChange={(e) => setGraphType(Number(e.target.value))}
+            >
+              <option value={0}>総人口</option>
+              <option value={1}>年少人口</option>
+              <option value={2}>生産年齢人口</option>
+              <option value={3}>老年人口</option>
+            </select>
+          </div>
+          <div id='container'>
+            <PopulationGraph data={populationData} graphType={graphType} />
+          </div>
         </div>
       )}
     </>

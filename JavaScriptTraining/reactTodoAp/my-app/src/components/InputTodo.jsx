@@ -16,7 +16,7 @@ export const InputTodo = (props) => {
       <input
         disabled={disabled}
         placeholder='TODOを入力'
-        defaultValue={todoText}
+        value={todoText}
         onChange={onChange}
       />
       <button disabled={disabled} onClick={onClick}>
